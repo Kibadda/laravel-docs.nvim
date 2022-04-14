@@ -6,7 +6,7 @@ local actions = require 'telescope.actions'
 local action_state = require 'telescope.actions.state'
 
 -- laravel docs modules
-local docnames = require('telescope._extensions.laravel-docs.docs')
+local docnames = require('telescope._extensions.laraveldocs.docs')
 
 local baseurl = 'https://laravel.com/docs/'
 
