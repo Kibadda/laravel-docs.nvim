@@ -39,7 +39,7 @@ M.laraveldocs = function (opts)
           url = url .. version .. '/'
         end
 
-        os.execute('xdg-open 2>/dev/null' .. url .. selection[1])
+        os.execute('xdg-open 2>/dev/null ' .. url .. selection[1])
       end)
       return true
     end,
