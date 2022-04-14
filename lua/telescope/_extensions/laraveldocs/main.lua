@@ -15,7 +15,6 @@ local M = {}
 local version = nil
 
 M.setup = function (config)
-  print(config)
   version = config.version or nil
 end
 
