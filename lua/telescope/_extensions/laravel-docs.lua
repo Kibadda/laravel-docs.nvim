@@ -3,9 +3,13 @@ local finders = require 'telescope.finders'
 local conf = require('telescope.config').values
 local actions = require 'telescope.actions'
 local action_state = require 'telescope.actions.state'
-local telescope = require 'telescope'
+local has_telescope, telescope = pcall(require, 'telescope')
 
-local docnames = require('lib.docs')
+if not has_telescope then
+  error('This plugins requires nvim-telescope/telescope.nvim')
+end
+
+local docnames = require('telescope._extensions.laravel-docs.docs')
 
 local baseurl = 'https://laravel.com/docs/'
 
