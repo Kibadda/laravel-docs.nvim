@@ -43,6 +43,8 @@ require('telescope').setup {
 ## Roadmap
  - [ ] Better listing of available documentation links
  - [ ] Preview of hovered documentation
+ - [ ] Tests
+ - [ ] auto generation of Laravel documentation table of contents
 
 # License
 MIT License
