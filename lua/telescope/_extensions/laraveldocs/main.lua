@@ -12,10 +12,7 @@ local baseurl = 'https://laravel.com/docs/'
 
 local M = {}
 
-local version = nil
-
 M.setup = function (config)
-  version = config.version or nil
 end
 
 M.laraveldocs = function (opts)
@@ -34,10 +31,6 @@ M.laraveldocs = function (opts)
         local selection = action_state.get_selected_entry()
 
         local url = baseurl .. '/'
-
-        if version ~= nil then
-          url = url .. version .. '/'
-        end
 
         os.execute('xdg-open 2>/dev/null ' .. url .. selection[1])
       end)
