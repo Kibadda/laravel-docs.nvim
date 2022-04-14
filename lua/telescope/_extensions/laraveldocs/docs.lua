@@ -18,7 +18,6 @@ return {
   'database',
   'database-testing',
   'deployment',
-  'docs.txt',
   'documentation',
   'dusk',
   'eloquent-collections',

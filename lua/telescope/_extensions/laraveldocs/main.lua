@@ -8,13 +8,16 @@ local action_state = require 'telescope.actions.state'
 -- laravel docs modules
 local docnames = require('telescope._extensions.laraveldocs.docs')
 
+-- base url for laravel documentation
 local baseurl = 'https://laravel.com/docs/'
 
 local M = {
+  -- url without version goes to newest documentation
   version = nil
 }
 
 M.setup = function (config)
+  -- override version by user config
   M.version = config.version or nil
 end
 
@@ -27,7 +30,7 @@ M.laraveldocs = function (opts)
       results = docnames
     },
     sorter = conf.generic_sorter(opts),
-    attach_mappings = function(prompt_bufnr, map)
+    attach_mappings = function(prompt_bufnr)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
 
@@ -35,6 +38,7 @@ M.laraveldocs = function (opts)
 
         local url = baseurl
 
+        -- add version string if provided by user
         if M.version ~= nil then
           url = url .. M.version .. '/'
         end
