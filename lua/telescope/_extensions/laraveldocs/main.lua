@@ -27,17 +27,19 @@ M.laraveldocs = function (opts)
       results = docnames
     },
     sorter = conf.generic_sorter(opts),
-    attach_mappings = function(prompt_bufnr)
+    attach_mappings = function(prompt_bufnr, map)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
 
-        local url = baseurl
+        local selection = action_state.get_selected_entry()
+
+        local url = baseurl .. '/'
+
         if version ~= nil then
-          url = url .. '/' .. version
+          url = url .. version .. '/'
         end
 
-        local selection = action_state.get_selected_entry()
-        os.execute('xdg-open ' .. url .. '/' .. selection[1])
+        os.execute('xdg-open ' .. url .. selection[1])
       end)
       return true
     end,
