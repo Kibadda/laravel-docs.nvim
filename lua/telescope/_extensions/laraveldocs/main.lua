@@ -6,7 +6,6 @@ local actions = require 'telescope.actions'
 local action_state = require 'telescope.actions.state'
 
 -- laravel docs modules
-local docnames = require('telescope._extensions.laraveldocs.docs')
 local generator = require('telescope._extensions.laraveldocs.generation')
 
 -- base url for laravel documentation
@@ -15,13 +14,8 @@ local baseurl = 'https://laravel.com/docs/'
 local M = {
   -- url without version goes to newest documentation
   version = nil,
-  docs = docnames,
+  docs = {},
 }
-
-M.setup = function (config)
-  -- override version by user config
-  M.version = config.version or nil
-end
 
 M.laraveldocs = function (opts)
   opts = opts or {}
@@ -52,8 +46,14 @@ M.laraveldocs = function (opts)
   }):find()
 end
 
-M.generatedocs = function ()
-  M.docs = generator.generate(M.version)
+M.generatedocs = function (version)
+  M.docs = generator.generate(version)
+end
+
+M.setup = function (config)
+  -- override version by user config
+  M.version = config.version or nil
+  M.generatedocs(M.version)
 end
 
 return M
