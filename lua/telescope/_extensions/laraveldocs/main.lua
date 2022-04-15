@@ -29,7 +29,7 @@ M.laraveldocs = function (opts)
         return {
           value = entry,
           display = entry.name,
-          ordinal = entry.slug,
+          ordinal = entry.name,
         }
       end
     },
@@ -55,7 +55,7 @@ M.laraveldocs = function (opts)
 end
 
 M.generatedocs = function (version)
-  M.docs = generator.generate(version)
+  M.docs = generator.generate(version or nil)
 end
 
 M.setup = function (config)
