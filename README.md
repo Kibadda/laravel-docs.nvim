@@ -52,7 +52,7 @@ require('telescope').setup {
 ```
 
 ## Roadmap
- - [ ] Better listing of available documentation links
+ - [x] Better listing of available documentation links
  - [ ] Preview of hovered documentation
  - [ ] Tests
  - [x] (auto) generation of Laravel documentation table of contents
