@@ -40,9 +40,9 @@ M.generate = function (version)
 
     local splits = mysplit(slug, '-')
 
-    for i,split in ipairs(splits) do
-      splits[i] = firstToUpper(split)
-    end
+    -- for i,split in ipairs(splits) do
+    --   splits[i] = firstToUpper(split)
+    -- end
 
     local entry = {
       slug = slug,
