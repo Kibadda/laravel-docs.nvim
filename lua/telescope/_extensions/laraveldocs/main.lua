@@ -7,13 +7,15 @@ local action_state = require 'telescope.actions.state'
 
 -- laravel docs modules
 local docnames = require('telescope._extensions.laraveldocs.docs')
+local generator = require('telescope._extensions.laraveldocs.generation')
 
 -- base url for laravel documentation
 local baseurl = 'https://laravel.com/docs/'
 
 local M = {
   -- url without version goes to newest documentation
-  version = nil
+  version = nil,
+  docs = docnames,
 }
 
 M.setup = function (config)
@@ -27,7 +29,7 @@ M.laraveldocs = function (opts)
     prompt_title = 'Laravel Documentation',
     results_title = 'Sites',
     finder = finders.new_table {
-      results = docnames
+      results = M.docnames
     },
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr)
@@ -48,6 +50,10 @@ M.laraveldocs = function (opts)
       return true
     end,
   }):find()
+end
+
+M.generatedocs = function ()
+  M.docnames = generator.generate(M.version)
 end
 
 return M
