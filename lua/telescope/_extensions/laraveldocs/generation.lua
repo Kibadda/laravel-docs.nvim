@@ -38,8 +38,10 @@ M.generate = function (version)
 
   local from = 1
   local delim_from, delim_to = string.find( read, "\n", from  )
+  local slug
+  local entry
   while delim_from do
-    local slug = string.sub(read, from, delim_from-4)
+    slug = string.sub(read, from, delim_from-4)
 
     -- local splits = mysplit(slug, '-')
 
@@ -47,7 +49,7 @@ M.generate = function (version)
     --   splits[i] = firstToUpper(split)
     -- end
 
-    local entry = {
+    entry = {
       slug = slug,
       -- name = table.concat(splits, ' '),
       name = slug,
