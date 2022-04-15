@@ -66,6 +66,4 @@ M.setup = function (config)
   vim.cmd [[ command! LaravelDocsGenerate execute 'lua require("telescope").extensions.laraveldocs.generatedocs()' ]]
 end
 
-M.laraveldocs()
-
 return M

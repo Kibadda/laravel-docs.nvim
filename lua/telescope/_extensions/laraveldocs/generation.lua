@@ -2,15 +2,18 @@ local function mysplit (inputstr, sep)
   if sep == nil then
     sep = "%s"
   end
+
   local t = {}
+
   for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
     table.insert(t, str)
   end
+
   return t
 end
 
 local function firstToUpper(str)
-    return (str:gsub("^%l", string.upper))
+  return (str:gsub("^%l", string.upper))
 end
 
 local M = {}
@@ -40,9 +43,9 @@ M.generate = function (version)
 
     local splits = mysplit(slug, '-')
 
-    -- for i,split in ipairs(splits) do
-    --   splits[i] = firstToUpper(split)
-    -- end
+    for i,split in ipairs(splits) do
+      splits[i] = firstToUpper(split)
+    end
 
     local entry = {
       slug = slug,
