@@ -53,7 +53,7 @@ M.generate = function (version)
       name = slug,
     }
 
-    table.insert(dictionary, entry)
+    table.insert(dictionary, slug)
     from  = delim_to + 1
     delim_from, delim_to = string.find(read, "\n", from)
   end
