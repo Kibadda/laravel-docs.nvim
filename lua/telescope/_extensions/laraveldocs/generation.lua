@@ -38,24 +38,23 @@ M.generate = function (version)
 
   local from = 1
   local delim_from, delim_to = string.find( read, "\n", from  )
-  -- local slug
-  -- local entry
+  local slug
+  local entry
   while delim_from do
-    -- slug = string.sub(read, from, delim_from-4)
+    slug = string.sub(read, from, delim_from-4)
 
-    -- local splits = mysplit(slug, '-')
+    local splits = mysplit(slug, '-')
 
-    -- for i,split in ipairs(splits) do
-    --   splits[i] = firstToUpper(split)
-    -- end
+    for i,split in ipairs(splits) do
+      splits[i] = firstToUpper(split)
+    end
 
-    -- entry = {
-    --   slug = slug,
-    --   -- name = table.concat(splits, ' '),
-    --   name = slug,
-    -- }
+    entry = {
+      slug = slug,
+      name = table.concat(splits, ' '),
+    }
 
-    table.insert(dictionary, string.sub(read, from, delim_from-4))
+    table.insert(dictionary, entry)
     from  = delim_to + 1
     delim_from, delim_to = string.find(read, "\n", from)
   end
