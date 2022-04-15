@@ -15,7 +15,7 @@ local baseurl = 'https://laravel.com/docs/'
 local M = {
   -- url without version goes to newest documentation
   version = nil,
-  docs = {},
+  docs = docs,
 }
 
 M.laraveldocs = function (opts)
