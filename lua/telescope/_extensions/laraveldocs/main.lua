@@ -15,7 +15,7 @@ local baseurl = 'https://laravel.com/docs/'
 local M = {
   -- url without version goes to newest documentation
   version = nil,
-  docs = docs,
+  docs = {},
 }
 
 M.laraveldocs = function (opts)
@@ -47,9 +47,7 @@ M.laraveldocs = function (opts)
           url = url .. M.version .. '/'
         end
 
-        print(selection[1])
-
-        os.execute('xdg-open 2>/dev/null ' .. url .. selection[1].slug)
+        os.execute('xdg-open 2>/dev/null ' .. url .. selection.value.slug)
       end)
       return true
     end,
@@ -67,5 +65,7 @@ M.setup = function (config)
   vim.cmd [[ command! LaravelDocs execute 'Telescope laraveldocs' ]]
   vim.cmd [[ command! LaravelDocsGenerate execute 'lua require("telescope").extensions.laraveldocs.generatedocs()' ]]
 end
+
+M.laraveldocs()
 
 return M

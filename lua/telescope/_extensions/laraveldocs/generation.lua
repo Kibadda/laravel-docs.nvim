@@ -1,3 +1,18 @@
+local function mysplit (inputstr, sep)
+  if sep == nil then
+    sep = "%s"
+  end
+  local t = {}
+  for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+    table.insert(t, str)
+  end
+  return t
+end
+
+local function firstToUpper(str)
+    return (str:gsub("^%l", string.upper))
+end
+
 local M = {}
 
 M.generate = function (version)
@@ -21,9 +36,22 @@ M.generate = function (version)
   local from = 1
   local delim_from, delim_to = string.find( read, "\n", from  )
   while delim_from do
-    table.insert(dictionary, string.sub( read, from , delim_from-4 ) )
+    local slug = string.sub(read, from, delim_from-4)
+
+    local splits = mysplit(slug, '-')
+
+    for i,split in splits do
+      splits[i] = firstToUpper(split)
+    end
+
+    local entry = {
+      slug = slug,
+      name = table.concat(splits, ' '),
+    }
+
+    table.insert(dictionary, entry)
     from  = delim_to + 1
-    delim_from, delim_to = string.find( read, "\n", from  )
+    delim_from, delim_to = string.find(read, "\n", from)
   end
 
   return dictionary
