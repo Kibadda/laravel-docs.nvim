@@ -24,7 +24,14 @@ M.laraveldocs = function (opts)
     prompt_title = 'Laravel Documentation',
     results_title = 'Sites',
     finder = finders.new_table {
-      results = M.docs
+      results = M.docs,
+      entry_maker = function (entry)
+        return {
+          value = entry,
+          display = entry.name,
+          ordinal = entry.slug,
+        }
+      end
     },
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr)
