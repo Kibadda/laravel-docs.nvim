@@ -15,7 +15,7 @@ local baseurl = 'https://laravel.com/docs/'
 local M = {
   -- url without version goes to newest documentation
   version = nil,
-  docs = {},
+  docs = docs,
 }
 
 M.laraveldocs = function (opts)
@@ -30,6 +30,9 @@ M.laraveldocs = function (opts)
     attach_mappings = function(prompt_bufnr)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
+
+        vim.cmd [[ command! LaravelDocs execute 'Telescope laraveldocs' ]]
+        vim.cmd [[ command! LaravelDocsGenerate execute 'lua require("telescope").extensions.laraveldocs.generatedocs()' ]]
 
         local selection = action_state.get_selected_entry()
 
