@@ -41,15 +41,16 @@ M.generate = function (version)
   while delim_from do
     local slug = string.sub(read, from, delim_from-4)
 
-    local splits = mysplit(slug, '-')
+    -- local splits = mysplit(slug, '-')
 
-    for i,split in ipairs(splits) do
-      splits[i] = firstToUpper(split)
-    end
+    -- for i,split in ipairs(splits) do
+    --   splits[i] = firstToUpper(split)
+    -- end
 
     local entry = {
       slug = slug,
-      name = table.concat(splits, ' '),
+      -- name = table.concat(splits, ' '),
+      name = slug,
     }
 
     table.insert(dictionary, entry)
