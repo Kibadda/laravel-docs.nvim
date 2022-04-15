@@ -7,6 +7,7 @@ local action_state = require 'telescope.actions.state'
 
 -- laravel docs modules
 local generator = require('telescope._extensions.laraveldocs.generation')
+local docs = require('telescope._extensions.laraveldocs.docs')
 
 -- base url for laravel documentation
 local baseurl = 'https://laravel.com/docs/'
@@ -47,16 +48,13 @@ M.laraveldocs = function (opts)
 end
 
 M.generatedocs = function (version)
-  local co = coroutine.create(function ()
-    return generator.generate(version)
-  end)
-  M.docs = coroutine.resume(co)
+  M.docs = generator.generate(version)
 end
 
 M.setup = function (config)
   -- override version by user config
   M.version = config.version or nil
-  M.generatedocs(M.version)
+  -- M.generatedocs(M.version)
 end
 
 return M

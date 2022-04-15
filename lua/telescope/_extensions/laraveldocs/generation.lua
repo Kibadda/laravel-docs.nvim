@@ -1,7 +1,7 @@
 local M = {}
 
 M.generate = function (version)
-  local dictionary = {'haha'}
+  local dictionary = {}
   local repository = 'https://github.com/laravel/docs.git'
 
   if version == nil then
@@ -21,7 +21,7 @@ M.generate = function (version)
   local from = 1
   local delim_from, delim_to = string.find( read, "\n", from  )
   while delim_from do
-    table.insert(dictionary, string.sub( read, from , delim_from-1 ) )
+    table.insert(dictionary, string.sub( read, from , delim_from-4 ) )
     from  = delim_to + 1
     delim_from, delim_to = string.find( read, "\n", from  )
   end
