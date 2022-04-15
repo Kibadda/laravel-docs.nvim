@@ -31,9 +31,6 @@ M.laraveldocs = function (opts)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
 
-        vim.cmd [[ command! LaravelDocs execute 'Telescope laraveldocs' ]]
-        vim.cmd [[ command! LaravelDocsGenerate execute 'lua require("telescope").extensions.laraveldocs.generatedocs()' ]]
-
         local selection = action_state.get_selected_entry()
 
         local url = baseurl
@@ -58,6 +55,8 @@ M.setup = function (config)
   -- override version by user config
   M.version = config.version or nil
   -- M.generatedocs(M.version)
+  vim.cmd [[ command! LaravelDocs execute 'Telescope laraveldocs' ]]
+  vim.cmd [[ command! LaravelDocsGenerate execute 'lua require("telescope").extensions.laraveldocs.generatedocs()' ]]
 end
 
 return M
