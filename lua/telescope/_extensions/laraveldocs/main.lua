@@ -29,7 +29,7 @@ M.laraveldocs = function (opts)
     prompt_title = 'Laravel Documentation',
     results_title = 'Sites',
     finder = finders.new_table {
-      results = M.docnames
+      results = M.docs
     },
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr)
@@ -53,7 +53,7 @@ M.laraveldocs = function (opts)
 end
 
 M.generatedocs = function ()
-  M.docnames = generator.generate(M.version)
+  M.docs = generator.generate(M.version)
 end
 
 return M
