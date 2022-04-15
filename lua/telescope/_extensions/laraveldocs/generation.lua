@@ -40,7 +40,7 @@ M.generate = function (version)
 
     local splits = mysplit(slug, '-')
 
-    for i,split in splits do
+    for i,split in ipairs(splits) do
       splits[i] = firstToUpper(split)
     end
 
