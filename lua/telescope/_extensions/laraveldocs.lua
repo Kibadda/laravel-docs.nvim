@@ -9,5 +9,6 @@ return telescope.register_extension {
   setup = main.setup,
   exports = {
     laraveldocs = main.laraveldocs,
+    generatedocs = main.generatedocs,
   },
 }
