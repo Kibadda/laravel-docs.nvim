@@ -13,6 +13,19 @@ M.generate = function (version)
   os.execute('ls /tmp/laraveldocs > /tmp/laraveldocs.txt')
   os.execute('rm -rf /tmp/laraveldocs')
 
+  local file = io.open('/tmp/laraveldocs.txt',"r")
+  local read = file:read("*all")
+  file:close()
+  os.remove('/tmp/laraveldocs.txt')
+
+  local from = 1
+  local delim_from, delim_to = string.find( read, "\n", from  )
+  while delim_from do
+    table.insert(dictionary, string.sub( read, from , delim_from-1 ) )
+    from  = delim_to + 1
+    delim_from, delim_to = string.find( read, "\n", from  )
+  end
+
   return dictionary
 end
 
