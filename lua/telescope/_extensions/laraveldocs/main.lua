@@ -47,7 +47,9 @@ M.laraveldocs = function (opts)
 end
 
 M.generatedocs = function (version)
-  local co = coroutine.create(generator.generate(version))
+  local co = coroutine.create(function ()
+    return generator.generate(version)
+  end)
   M.docs = coroutine.resume(co)
 end
 
