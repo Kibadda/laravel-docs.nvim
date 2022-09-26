@@ -4,6 +4,7 @@ A telescope.nvim extension that offers [Laravel](https://laravel.com/docs) docum
 
 ## Requirements
  - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+ - optional: [glow](https://github.com/charmbracelet/glow)
 
 ## Installation
 Install with your favorite package manager
