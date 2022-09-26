@@ -38,8 +38,8 @@ vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs laravel_docs<CR>"
 ## Roadmap
  - [x] Better listing of available documentation links
  - [x] Preview of hovered documentation
- - [ ] Tests
- - [x] (auto) generation of Laravel documentation table of contents
+ - [x] (auto) generation of Laravel documentation
+ - [ ] sub categories
 
 # License
 MIT License
