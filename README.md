@@ -10,50 +10,33 @@ Install with your favorite package manager
 
 e.g. [Packer.nvim](https://github.com/wbthomason/packer.nvim)
 ```lua
-use {
-  "Kibadda/laravel-docs.nvim",
-  config = function()
-    require"telescope".load_extension("laraveldocs")
-  end,
-}
+use "Kibadda/laravel-docs.nvim"
 ```
 
-## Usage
-after installation, there are two available commands:
-1. LaravelDocs
-    ```
-    :LaravelDocs
-    ```
-    Opens the telescope picker \
-    Example mapping:
-    ```
-    vim.api.nvim_set_keymap("n", "<leader>l", ":LaravelDocs<CR>", {noremap = true, silent = true})
-    ```
-1. LaravelDocsGenerate
-    ```
-    :LaravelDocsGenerate
-    ```
-    This generates new documentation links \
-    Should be called after changing version of Laravel in config \
-    `TODO: better and faster generation (currently clones Laravel Docs github)` 
-
-## Configuration
-The only configuration option available right now is the version number for Laravel.
-
-Example Configuration:
+## Setup
 ```lua
-require('telescope').setup {
+require("telescope").setup {
   extensions = {
-    laraveldocs = {
-      version = nil -- e.g. 9.x or 8.x
+    ["laravel-docs"] = {
+      preview = true,                      -- show telescope preview
+      preview_with_glow = false,           -- use glow as telescope previewer
+      directory = "~/.cache/laravel-docs", -- where to clone the laravel docs github repo
     },
   },
 }
+
+require("telescope").load_extension "laravel-docs"
+```
+
+## Usage
+Either run `:Telescope laravel-docs laravel_docs` or map it to a key, e.g.:
+```lua
+vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs laravel_docs<CR>")
 ```
 
 ## Roadmap
  - [x] Better listing of available documentation links
- - [ ] Preview of hovered documentation
+ - [x] Preview of hovered documentation
  - [ ] Tests
  - [x] (auto) generation of Laravel documentation table of contents
 
