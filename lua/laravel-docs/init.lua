@@ -3,7 +3,7 @@ local M = {
     version = nil,
     directory = "~/.cache/laravel-docs",
     preview = true,
-    preview_glow = false,
+    preview_with_glow = false,
   },
 }
 

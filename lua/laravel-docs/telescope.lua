@@ -54,7 +54,7 @@ function M.laravel_docs(opts)
   }
 
   if laravel_docs.opts.preview then
-    if laravel_docs.opts.preview_glow and vim.fn.executable "glow" == 1 then
+    if laravel_docs.opts.preview_with_glow and vim.fn.executable "glow" == 1 then
       picker_opts.previewer = previewers.new_termopen_previewer {
         get_command = function(entry)
           return {
