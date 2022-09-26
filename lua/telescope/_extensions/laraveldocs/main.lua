@@ -1,16 +1,16 @@
 -- telescope modules
-local pickers = require 'telescope.pickers'
-local finders = require 'telescope.finders'
-local conf = require('telescope.config').values
-local actions = require 'telescope.actions'
-local action_state = require 'telescope.actions.state'
+local pickers = require "telescope.pickers"
+local finders = require "telescope.finders"
+local conf = require("telescope.config").values
+local actions = require "telescope.actions"
+local action_state = require "telescope.actions.state"
 
 -- laravel docs modules
-local generator = require('telescope._extensions.laraveldocs.generation')
-local docs = require('telescope._extensions.laraveldocs.docs')
+local generator = require "telescope._extensions.laraveldocs.generation"
+local docs = require "telescope._extensions.laraveldocs.docs"
 
 -- base url for laravel documentation
-local baseurl = 'https://laravel.com/docs/'
+local baseurl = "https://laravel.com/docs/"
 
 local M = {
   -- url without version goes to newest documentation
@@ -18,47 +18,49 @@ local M = {
   docs = docs,
 }
 
-M.laraveldocs = function (opts)
+M.laraveldocs = function(opts)
   opts = opts or {}
-  pickers.new(opts, {
-    prompt_title = 'Laravel Documentation',
-    results_title = 'Sites',
-    finder = finders.new_table {
-      results = M.docs,
-      entry_maker = function (entry)
-        return {
-          value = entry,
-          display = entry.name,
-          ordinal = entry.name,
-        }
-      end
-    },
-    sorter = conf.generic_sorter(opts),
-    attach_mappings = function(prompt_bufnr)
-      actions.select_default:replace(function()
-        actions.close(prompt_bufnr)
+  pickers
+    .new(opts, {
+      prompt_title = "Laravel Documentation",
+      results_title = "Sites",
+      finder = finders.new_table {
+        results = M.docs,
+        entry_maker = function(entry)
+          return {
+            value = entry,
+            display = entry.name,
+            ordinal = entry.name,
+          }
+        end,
+      },
+      sorter = conf.generic_sorter(opts),
+      attach_mappings = function(prompt_bufnr)
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
 
-        local selection = action_state.get_selected_entry()
+          local selection = action_state.get_selected_entry()
 
-        local url = baseurl
+          local url = baseurl
 
-        -- add version string if provided by user
-        if M.version ~= nil then
-          url = url .. M.version .. '/'
-        end
+          -- add version string if provided by user
+          if M.version ~= nil then
+            url = url .. M.version .. "/"
+          end
 
-        os.execute('xdg-open 2>/dev/null ' .. url .. selection.value.slug)
-      end)
-      return true
-    end,
-  }):find()
+          os.execute("xdg-open 2>/dev/null " .. url .. selection.value.slug)
+        end)
+        return true
+      end,
+    })
+    :find()
 end
 
-M.generatedocs = function (version)
+M.generatedocs = function(version)
   M.docs = generator.generate(version or nil)
 end
 
-M.setup = function (config)
+M.setup = function(config)
   -- override version by user config
   M.version = config.version or nil
   -- M.generatedocs(M.version)
