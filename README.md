@@ -30,9 +30,9 @@ require("telescope").load_extension "laravel-docs"
 ```
 
 ## Usage
-Either run `:Telescope laravel-docs laravel_docs` or map it to a key, e.g.:
+Either run `:Telescope laravel-docs` or map it to a key, e.g.:
 ```lua
-vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs laravel_docs<CR>")
+vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs<CR>")
 ```
 
 ## Roadmap
