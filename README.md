@@ -39,6 +39,7 @@ vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs<CR>")
  - [x] Better listing of available documentation links
  - [x] Preview of hovered documentation
  - [x] (auto) generation of Laravel documentation
+ - [ ] fix preview not loading bug with glow (only after pressing scroll buttons once)
  - [ ] sub categories
 
 # License
