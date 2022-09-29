@@ -19,7 +19,7 @@ function M.find_doc_sites()
   for _, file in ipairs(ls:result()) do
     local slug = vim.split(file, ".", { plain = true })[1]
 
-    local split = vim.split(slug, "-")
+    local split = vim.split(slug, "-", { plain = true })
     for i, part in ipairs(split) do
       split[i] = string.gsub(part, "^%l", string.upper)
     end
