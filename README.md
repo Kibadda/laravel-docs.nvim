@@ -19,6 +19,7 @@ use "Kibadda/laravel-docs.nvim"
 require("telescope").setup {
   extensions = {
     ["laravel-docs"] = {
+      version = nil,                       -- version string, e.g. "8.x", default newest
       preview = true,                      -- show telescope preview
       preview_with_glow = false,           -- use glow as telescope previewer
       directory = "~/.cache/laravel-docs", -- where to clone the laravel docs github repo
@@ -34,6 +35,9 @@ Either run `:Telescope laravel-docs` or map it to a key, e.g.:
 ```lua
 vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs<CR>")
 ```
+In Telescope picker:
+ - `<C-o>/o` (insert/normal) opens selected doc site in browser
+ - `<CR>` opens Telescope picker with all subheadings
 
 ## Roadmap
  - [x] Better listing of available documentation links
