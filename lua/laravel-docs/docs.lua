@@ -35,11 +35,11 @@ function M.generate()
         command = "git",
         args = args,
         on_exit = function(_, result_var)
-          if result_var == 1 then
-            vim.notify("Generation failed", 4, { title = "Larvel Documentation" })
-          else
-            vim.notify("Generation successful", 2, { title = "Larvel Documentation" })
-          end
+          -- if result_var == 1 then
+          --   vim.notify("Generation failed", 4, { title = "Larvel Documentation" })
+          -- else
+          --   vim.notify("Generation successful", 2, { title = "Larvel Documentation" })
+          -- end
           generating = false
         end,
       }):start()
@@ -52,11 +52,11 @@ function M.generate()
         args = { "pull" },
         cwd = directory,
         on_exit = function(_, result_var)
-          if result_var == 1 then
-            vim.notify("Update failed", 4, { title = "Larvel Documentation" })
-          else
-            vim.notify("Update successful", 2, { title = "Larvel Documentation" })
-          end
+          -- if result_var == 1 then
+          --   vim.notify("Update failed", 4, { title = "Larvel Documentation" })
+          -- else
+          --   vim.notify("Update successful", 2, { title = "Larvel Documentation" })
+          -- end
           generating = false
         end,
       }):start()
