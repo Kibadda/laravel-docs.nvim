@@ -2,11 +2,11 @@
 
 A telescope.nvim extension that offers [Laravel](https://laravel.com/docs) documentation shortcuts.
 
-## Requirements
+## :package: Requirements
  - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
  - optional: [glow](https://github.com/charmbracelet/glow)
 
-## Installation
+## :wrench: Installation
 Install with your favorite package manager
 
 e.g. [Packer.nvim](https://github.com/wbthomason/packer.nvim)
@@ -14,12 +14,12 @@ e.g. [Packer.nvim](https://github.com/wbthomason/packer.nvim)
 use "Kibadda/laravel-docs.nvim"
 ```
 
-## Setup
+## :bulb: Setup
 ```lua
 require("telescope").setup {
   extensions = {
     ["laravel-docs"] = {
-      version = nil,                       -- version string, e.g. "8.x", default newest
+      version = "9.x",                     -- one of: "6.x", "7.x", "8.x", "9.x", "master"
       preview = true,                      -- show telescope preview
       preview_with_glow = false,           -- use glow as telescope previewer
       directory = "~/.cache/laravel-docs", -- where to clone the laravel docs github repo
@@ -30,7 +30,7 @@ require("telescope").setup {
 require("telescope").load_extension "laravel-docs"
 ```
 
-## Usage
+## :mag: Usage
 Either run `:Telescope laravel-docs` or map it to a key, e.g.:
 ```lua
 vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs<CR>")
@@ -39,12 +39,12 @@ In Telescope picker:
  - `<C-o>/o` (insert/normal) opens selected doc site in browser
  - `<CR>` opens Telescope picker with all subheadings
 
-## Roadmap
- - [x] Better listing of available documentation links
- - [x] Preview of hovered documentation
- - [x] (auto) generation of Laravel documentation
- - [ ] fix preview not loading bug with glow (only after pressing scroll buttons once)
- - [ ] sub categories
+## :car: Roadmap
+- [x] Better listing of available documentation links
+- [x] Preview of hovered documentation
+- [x] (auto) generation of Laravel documentation
+- [x] sub headings
+- [ ] fix preview not loading bug with glow (only after pressing scroll buttons once)
 
 # License
 MIT License
