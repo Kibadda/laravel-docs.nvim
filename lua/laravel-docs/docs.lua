@@ -15,7 +15,7 @@ local function start_job_chain(job_opts)
         end
         Job:new(opts):start()
       else
-        Job:new(job_opts):sync()
+        Job:new(opts):sync()
       end
     end
   end
