@@ -1,15 +1,9 @@
-local M = {
-  opts = {
-    version = nil,
-    directory = "~/.cache/laravel-docs",
-    preview = true,
-    preview_with_glow = false,
-  },
-}
+local config = require "laravel-docs.config"
+
+local M = {}
 
 function M.setup(opts)
-  opts = opts or {}
-  M.opts = vim.tbl_deep_extend("keep", opts, M.opts)
+  config.setup(opts)
 
   require("laravel-docs.docs").generate()
 end

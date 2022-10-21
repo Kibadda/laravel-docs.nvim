@@ -5,8 +5,8 @@ local previewers = require "telescope.previewers"
 local conf = require("telescope.config").values
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
-local laravel_docs = require "laravel-docs"
 local laravel_docs_finders = require "laravel-docs.finders"
+local config = require "laravel-docs.config"
 
 local base_url = "https://laravel.com/docs/"
 
@@ -15,7 +15,7 @@ local M = {}
 function M.laravel_docs(opts)
   opts = opts or {}
 
-  local version = laravel_docs.opts.version
+  local version = config.version()
 
   local results = laravel_docs_finders.find_doc_sites()
 
@@ -68,8 +68,8 @@ function M.laravel_docs(opts)
     end,
   }
 
-  if laravel_docs.opts.preview then
-    if laravel_docs.opts.preview_with_glow and vim.fn.executable "glow" == 1 then
+  if config.preview() then
+    if config.preview_with_glow() and vim.fn.executable "glow" == 1 then
       picker_opts.previewer = previewers.new_termopen_previewer {
         get_command = function(entry)
           return {
@@ -90,7 +90,7 @@ end
 function M.sub_heading(opts)
   opts = opts or {}
 
-  local version = laravel_docs.opts.version
+  local version = config.version()
 
   local results = laravel_docs_finders.find_sub_headings(opts.doc_site.slug)
 
@@ -129,7 +129,7 @@ function M.sub_heading(opts)
     end,
   }
 
-  if laravel_docs.opts.preview then
+  if config.preview() then
     picker_opts.previewer = conf.grep_previewer {}
   end
 

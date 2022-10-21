@@ -1,10 +1,10 @@
 local Job = require "plenary.job"
-local laravel_docs = require "laravel-docs"
+local config = require "laravel-docs.config"
 
 local M = {}
 
 function M.find_doc_sites()
-  local directory = vim.fn.fnamemodify(laravel_docs.opts.directory, ":p")
+  local directory = vim.fn.expand(config.directory())
 
   local ls = Job:new {
     command = "ls",
@@ -35,7 +35,7 @@ function M.find_doc_sites()
 end
 
 function M.find_sub_headings(doc_site)
-  local directory = vim.fn.fnamemodify(laravel_docs.opts.directory, ":p")
+  local directory = vim.fn.expand(config.directory())
   local file = string.format("%s/%s.md", directory, doc_site)
   local file_string = table.concat(vim.fn.readfile(file), "\n")
 
