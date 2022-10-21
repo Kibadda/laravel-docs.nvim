@@ -5,55 +5,53 @@ local M = {}
 
 local generating = false
 
-local function ensure_one_git_process(callback)
+local function start_job_chain(job_opts)
   if not generating then
     generating = true
-    callback()
-    generating = false
+    for i, opts in ipairs(job_opts) do
+      if i == #job_opts then
+        opts.on_exit = function()
+          generating = false
+        end
+        Job:new(opts):start()
+      else
+        Job:new(job_opts):sync()
+      end
+    end
   end
-end
-
-local function clone_repository()
-  Job:new({
-    command = "git",
-    args = {
-      "clone",
-      "-q",
-      "-b",
-      config.version(),
-      "https://github.com/laravel/docs.git",
-      vim.fn.expand(config.directory()),
-    },
-  }):sync()
-end
-
-local function switch_branch()
-  Job:new({
-    command = "git",
-    args = {
-      "switch",
-      config.version(),
-    },
-    cwd = vim.fn.expand(config.directory()),
-  }):sync()
-end
-
-local function update_repository()
-  Job:new({
-    command = "git",
-    args = { "pull" },
-    cwd = vim.fn.expand(config.directory()),
-  }):sync()
 end
 
 function M.generate()
   if vim.fn.isdirectory(vim.fn.expand(config.directory())) == 0 then
-    ensure_one_git_process(clone_repository)
+    start_job_chain {
+      {
+        command = "git",
+        args = {
+          "clone",
+          "-q",
+          "-b",
+          config.version(),
+          "https://github.com/laravel/docs.git",
+          vim.fn.expand(config.directory()),
+        },
+      },
+    }
   else
-    ensure_one_git_process(function()
-      switch_branch()
-      update_repository()
-    end)
+    start_job_chain {
+      {
+        command = "git",
+        args = {
+          "switch",
+          config.version(),
+        },
+        cwd = vim.fn.expand(config.directory()),
+      },
+      {
+        command = "git",
+        args = { "pull" },
+        cwd = vim.fn.expand(config.directory()),
+      },
+    }
   end
 end
 
