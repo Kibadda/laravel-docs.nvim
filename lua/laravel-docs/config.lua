@@ -23,7 +23,8 @@ function M.setup(user_config)
         end
         local available_versions = { "6.x", "7.x", "8.x", "9.x", "master" }
 
-        return vim.tbl_contains(available_versions, value), "one of: " .. table.concat(available_versions, ", ")
+        return vim.tbl_contains(available_versions, value),
+          ("one of: %s"):format(table.concat(available_versions, ", "))
       end,
       "version number",
     },

@@ -27,7 +27,7 @@ function M.find_doc_sites()
     table.insert(results, {
       slug = slug,
       name = table.concat(split, " "),
-      path = directory .. file,
+      path = string.format("%s/%s", directory, file),
     })
   end
 

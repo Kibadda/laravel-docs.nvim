@@ -44,8 +44,8 @@ In Telescope picker:
 - [x] Preview of hovered documentation
 - [x] (auto) generation of Laravel documentation
 - [x] sub headings
-- [ ] Bug: subheadings picker is not searchable
-- [ ] Bug: glow preview not showing (only after pressing scroll buttons once)
+- [x] Bug: subheadings picker is not searchable
+- [ ] Bug: glow preview sometimes not showing (only after pressing scroll buttons once)
 
 # License
 MIT License

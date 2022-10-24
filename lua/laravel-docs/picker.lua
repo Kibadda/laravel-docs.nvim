@@ -50,12 +50,12 @@ function M.laravel_docs(opts)
 
         local url = base_url
         if version then
-          url = url .. version .. "/"
+          url = ("%s%s/"):format(url, version)
         end
         Job:new({
           command = "xdg-open",
           args = {
-            url .. selection.slug,
+            ("%s%s"):format(url, selection.slug),
           },
         }):start()
       end
@@ -95,14 +95,14 @@ function M.sub_heading(opts)
   local results = laravel_docs_finders.find_sub_headings(opts.doc_site.slug)
 
   local picker_opts = {
-    prompt_title = "Laravel Documentation " .. opts.doc_site.name,
+    prompt_title = ("Laravel Documentation %s"):format(opts.doc_site.name),
     finder = finders.new_table {
       results = results,
       entry_maker = function(entry)
         return {
           path = opts.doc_site.path,
           display = entry.name,
-          ordinal = entry.lnum,
+          ordinal = entry.name,
           lnum = entry.lnum,
           entry = entry,
         }
@@ -116,12 +116,12 @@ function M.sub_heading(opts)
 
         local url = base_url
         if version then
-          url = url .. version .. "/"
+          url = ("%s%s/"):format(url, version)
         end
         Job:new({
           command = "xdg-open",
           args = {
-            url .. opts.doc_site.slug .. "#" .. selection.anchor,
+            ("%s%s#%s"):format(url, opts.doc_site.slug, selection.anchor),
           },
         }):start()
       end)
