@@ -2,7 +2,7 @@ local M = {}
 
 local config = {
   version = "9.x",
-  directory = "~/.cache/laravel-docs",
+  directory = "$HOME/.cache/laravel-docs",
   preview = true,
   preview_with_glow = false,
 }

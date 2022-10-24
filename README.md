@@ -22,7 +22,7 @@ require("telescope").setup {
       version = "9.x",                     -- one of: "6.x", "7.x", "8.x", "9.x", "master"
       preview = true,                      -- show telescope preview
       preview_with_glow = false,           -- use glow as telescope previewer
-      directory = "~/.cache/laravel-docs", -- where to clone the laravel docs github repo
+      directory = "$HOME/.cache/laravel-docs", -- where to clone the laravel docs github repo
     },
   },
 }
