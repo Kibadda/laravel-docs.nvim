@@ -4,8 +4,8 @@ describe("config", function()
 
     Config.set()
 
-    assert.equal("9.x", Config.options.version)
-    assert.equal("$HOME/.cache/laravel-docs", Config.options.directory)
+    assert.equal("10.x", Config.options.version)
+    assert.equal(vim.fn.stdpath "cache" .. "/laravel-docs", Config.options.directory)
     assert.equal(true, Config.options.preview)
     assert.equal(false, Config.options.glow)
     assert.equal(vim.fn.stdpath "state" .. "/laravel-docs.log", Config.options.log)
@@ -16,7 +16,7 @@ describe("config", function()
 
     local options = {
       version = "master",
-      directory = "$HOME/other/directory",
+      directory = "~/other/git/directory",
       preview = false,
       glow = true,
       log = "~/other/log/location/name.log",
