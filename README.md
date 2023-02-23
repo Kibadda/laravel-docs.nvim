@@ -19,10 +19,10 @@ use "Kibadda/laravel-docs.nvim"
 require("telescope").setup {
   extensions = {
     ["laravel-docs"] = {
-      version = "9.x",                     -- one of: "6.x", "7.x", "8.x", "9.x", "master"
-      preview = true,                      -- show telescope preview
-      preview_with_glow = false,           -- use glow as telescope previewer
-      directory = "$HOME/.cache/laravel-docs", -- where to clone the laravel docs github repo
+      version = "10.x",                                      -- one of: "8.x", "9.x", "10.x", "master"
+      preview = true,                                        -- show telescope preview
+      glow = false,                                          -- use glow as telescope previewer
+      directory = vim.fn.stdpath "cache" .. "/laravel-docs", -- where to clone the laravel docs github repo
     },
   },
 }
@@ -33,7 +33,9 @@ require("telescope").load_extension "laravel-docs"
 ## :mag: Usage
 Either run `:Telescope laravel-docs` or map it to a key, e.g.:
 ```lua
-vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs<CR>")
+vim.keymap.set("n", "<Leader>sl", "<Cmd>Telescope laravel-docs<CR>", {
+  desc = "[S]earch [L]aravel Docs"
+})
 ```
 In Telescope picker:
  - `<C-o>/o` (insert/normal) opens selected doc site in browser

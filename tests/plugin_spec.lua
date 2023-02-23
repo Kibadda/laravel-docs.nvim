@@ -1,0 +1,5 @@
+describe("plugin", function()
+  it("has added command", function()
+    assert.equal(2, vim.fn.exists ":LaravelDocs")
+  end)
+end)

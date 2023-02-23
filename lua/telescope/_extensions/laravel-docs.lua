@@ -4,12 +4,9 @@ if not ok then
   error "This plugin needs telescope installed"
 end
 
-local laravel_docs = require "laravel-docs"
-local picker = require "laravel-docs.picker"
-
 return telescope.register_extension {
-  setup = laravel_docs.setup,
+  setup = require("laravel-docs").setup,
   exports = {
-    ["laravel-docs"] = picker.laravel_docs,
+    ["laravel-docs"] = require("laravel-docs.picker").laravel_docs,
   },
 }

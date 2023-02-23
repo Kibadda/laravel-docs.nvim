@@ -1,0 +1,11 @@
+{
+  "neodev": {
+    "library": {
+      "enabled": true,
+      "plugins": [
+        "telescope.nvim",
+        "plenary.nvim"
+      ]
+    }
+  }
+}

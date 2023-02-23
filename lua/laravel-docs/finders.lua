@@ -1,33 +1,32 @@
-local Job = require "plenary.job"
-local config = require "laravel-docs.config"
-
 local M = {}
 
 function M.find_doc_sites()
-  local directory = vim.fn.expand(config.directory())
+  local Config = require "laravel-docs.config"
+  local directory = vim.fn.expand(Config.options.directory)
 
-  local ls = Job:new {
-    command = "ls",
-    args = {
-      directory,
-    },
-  }
-  ls:sync()
+  local files = vim.fs.find(function(file)
+    return string.match(file, ".md$") ~= nil
+  end, {
+    path = directory,
+    type = "file",
+    limit = math.huge,
+  })
 
   local results = {}
 
-  for _, file in ipairs(ls:result()) do
-    local slug = vim.split(file, ".", { plain = true })[1]
+  for _, file in ipairs(files) do
+    local path_split = vim.split(file, "/", { plain = true })
+    local slug = vim.split(path_split[#path_split], ".", { plain = true })[1]
 
     local split = vim.split(slug, "-", { plain = true })
     for i, part in ipairs(split) do
-      split[i] = string.gsub(part, "^%l", string.upper)
+      split[i] = part:gsub("^%l", string.upper)
     end
 
     table.insert(results, {
       slug = slug,
       name = table.concat(split, " "),
-      path = string.format("%s/%s", directory, file),
+      path = file,
     })
   end
 
@@ -35,8 +34,9 @@ function M.find_doc_sites()
 end
 
 function M.find_sub_headings(doc_site)
-  local directory = vim.fn.expand(config.directory())
-  local file = string.format("%s/%s.md", directory, doc_site)
+  local Config = require "laravel-docs.config"
+  local directory = vim.fn.expand(Config.options.directory)
+  local file = ("%s/%s.md"):format(directory, doc_site)
   local file_string = table.concat(vim.fn.readfile(file), "\n")
 
   local query_string = [[
@@ -77,12 +77,12 @@ function M.find_sub_headings(doc_site)
   local captures = {}
 
   local root = vim.treesitter.get_string_parser(file_string, "markdown", {}):parse()[1]:root()
-  local query = vim.treesitter.parse_query("markdown", query_string)
+  local query = vim.treesitter.query.parse_query("markdown", query_string)
 
-  for _, match in query:iter_matches(root) do
+  for _, match in query:iter_matches(root, "", 1, -1) do
     local entry = {}
     for id, node in pairs(match) do
-      entry[query.captures[id]] = vim.treesitter.get_node_text(node, file_string)
+      entry[query.captures[id]] = vim.treesitter.query.get_node_text(node, file_string)
       if query.captures[id] == "text" then
         entry.lnum = node:start()
       end
@@ -93,9 +93,9 @@ function M.find_sub_headings(doc_site)
   local results = {}
   for _, capture in ipairs(captures) do
     table.insert(results, {
-      name = string.sub(capture.text, 2),
-      type = string.len(capture.type),
-      anchor = string.match(capture.link, [["([^"]+)]]),
+      name = capture.text:sub(2),
+      type = capture.type:len(),
+      anchor = capture.link:match [["([^"]+)]],
       lnum = capture.lnum + 1,
     })
   end
