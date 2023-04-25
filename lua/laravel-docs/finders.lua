@@ -5,7 +5,7 @@ function M.find_doc_sites()
   local directory = vim.fn.expand(Config.options.directory)
 
   local files = vim.fs.find(function(file)
-    return string.match(file, ".md$") ~= nil
+    return string.match(file, ".md$") ~= nil and string.find(file, "readme.md") == nil
   end, {
     path = directory,
     type = "file",
@@ -77,12 +77,12 @@ function M.find_sub_headings(doc_site)
   local captures = {}
 
   local root = vim.treesitter.get_string_parser(file_string, "markdown", {}):parse()[1]:root()
-  local query = vim.treesitter.query.parse_query("markdown", query_string)
+  local query = vim.treesitter.query.parse("markdown", query_string)
 
   for _, match in query:iter_matches(root, "", 1, -1) do
     local entry = {}
     for id, node in pairs(match) do
-      entry[query.captures[id]] = vim.treesitter.query.get_node_text(node, file_string)
+      entry[query.captures[id]] = vim.treesitter.get_node_text(node, file_string)
       if query.captures[id] == "text" then
         entry.lnum = node:start()
       end
