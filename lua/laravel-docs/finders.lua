@@ -39,45 +39,46 @@ function M.find_sub_headings(doc_site)
   local file = ("%s/%s.md"):format(directory, doc_site)
   local file_string = table.concat(vim.fn.readfile(file), "\n")
 
-  local query_string = [[
-    [
-      (
-        (section
-          (paragraph
-            (inline) @link) .)
-        .
-        (section
-          (atx_heading
-            (_) @type
-            heading_content: (inline) @text))
-      )
-      (
-        (section
-          (section
-            (paragraph
-              (inline) @link) .) .)
-        .
-        (section
-          (atx_heading
-            (_) @type
-            heading_content: (inline) @text))
-      )
-      (
-        (paragraph
-          (inline) @link)
-        .
-        (section
-          (atx_heading
-            (_) @type
-            heading_content: (inline) @text))
-      )
-    ]
-  ]]
-
   local captures = {}
 
   local root = vim.treesitter.get_string_parser(file_string, "markdown", {}):parse()[1]:root()
-  local query = vim.treesitter.query.parse("markdown", query_string)
+  local query = vim.treesitter.query.parse(
+    "markdown",
+    [[
+      [
+        (
+          (section
+            (paragraph
+              (inline) @link) .)
+          .
+          (section
+            (atx_heading
+              (_) @type
+              heading_content: (inline) @text))
+        )
+        (
+          (section
+            (section
+              (paragraph
+                (inline) @link) .) .)
+          .
+          (section
+            (atx_heading
+              (_) @type
+              heading_content: (inline) @text))
+        )
+        (
+          (paragraph
+            (inline) @link)
+          .
+          (section
+            (atx_heading
+              (_) @type
+              heading_content: (inline) @text))
+        )
+      ]
+    ]]
+  )
 
   for _, match in query:iter_matches(root, "", 1, -1) do
     local entry = {}

@@ -37,3 +37,10 @@ end, {
     end, doc_sites)
   end,
 })
+
+vim.api.nvim_create_user_command("LaravelDocsUpdate", function()
+  require("laravel-docs.docs").generate()
+end, {
+  nargs = 0,
+  desc = "LaravelDocsUpdate",
+})
